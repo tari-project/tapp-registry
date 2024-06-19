@@ -41,7 +41,7 @@ jobs:
           git commit -m "Register tapplet"
           git fetch origin
           git rebase --strategy-option=theirs origin/main
-          git push
+          git push origin HEAD:tapp/tapp-example-1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EMAIL: ${{ secrets.EMAIL }}
