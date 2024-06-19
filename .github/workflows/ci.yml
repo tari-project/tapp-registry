@@ -32,15 +32,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # TODO
-      # - name: Commit manifest
-      #   id: push-commit
-      #   run: |
-      #     git config user.name "karczuRF"
-      #     git config user.email "${{ secrets.EMAIL }}"
-      #     git add -A
-      #     git commit -m "Register tapplet"
-      #     git push --set-upstream --force origin feat/tapp-example
-
-      # env:
-      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   EMAIL: ${{ secrets.EMAIL }}
+      - name: Commit manifest
+        id: push-commit
+        run: |
+          git config user.name "karczuRF"
+          git config user.email "${{ secrets.EMAIL }}"
+          git add -A
+          git commit -m "Register tapplet"
+          git fetch origin
+          git rebase --strategy-option=theirs origin/main
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EMAIL: ${{ secrets.EMAIL }}
