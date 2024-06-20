@@ -66,13 +66,13 @@ jobs:
         id: push-commit
         run: |
           if [ ${{ needs.check-tapp.outputs.status }} ]; then
-            git config user.name "karczuRF"
+            git config user.name "${{ github.actor }}"
             git config user.email "${{ secrets.EMAIL }}"
             git add -A
             git commit -m "Register tapplet"
             git fetch origin
             git rebase --strategy-option=theirs origin/main
-            git push origin HEAD:${{github.ref_name}} --force
+            git push origin HEAD:${{github.event.pull_request.title}} --force
           fi
 
         env:
