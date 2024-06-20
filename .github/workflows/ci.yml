@@ -30,8 +30,8 @@ jobs:
         id: var-setup
         shell: bash
         run: |
-          ref_name=${{ github.ref_name }}
-          IFS="@" read -r NAME VERSION <<< "$ref_name"
+          pr_name=${{ github.event.pull_request.title }}
+          IFS="@" read -r NAME VERSION <<< "$pr_name"
           echo "Name: $NAME"
           echo "Version: $VERSION"
           echo "name=${NAME}" >> $GITHUB_OUTPUT
