@@ -75,7 +75,7 @@ jobs:
             git commit -m "Register tapplet"
             git fetch origin
             git rebase --strategy-option=theirs origin/main
-            git push origin HEAD:${{github.event.pull_request.title}} --force
+            git push --force
           fi
 
         env:
