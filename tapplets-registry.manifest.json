@@ -49,9 +49,13 @@
         "0.0.1": {
           "integrity": "sha512-ivQM1oWaCaZrHARDCD2rib/RFmNDdSDuCQofOsEc3HLo/zgGjLXiySwm/uu3s/5lt9S+/oPC6wFE3m5agzdizA==",
           "registryUrl": "https://registry.npmjs.org/tapplet-example/-/tapplet-example-0.0.2.tgz"
+        },
+        "0.0.2": {
+          "integrity": "sha512-ivQM1oWaCaZrHARDCD2rib/RFmNDdSDuCQofOsEc3HLo/zgGjLXiySwm/uu3s/5lt9S+/oPC6wFE3m5agzdizA==",
+          "registryUrl": "https://registry.npmjs.org/tapplet-example/-/tapplet-example-0.0.2.tgz"
         }
       }
     }
   },
-  "manifestVersion": "1.0.1"
+  "manifestVersion": "1.0.2"
 }
