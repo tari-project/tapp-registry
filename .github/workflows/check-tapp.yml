@@ -60,5 +60,12 @@ jobs:
 
       - name: Commit updated files
         id: push-commit
-        # Commit all changed files back to the repository
-        uses: stefanzweifel/git-auto-commit-action@v5
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+          git add -A
+          git commit -m "Add images from ${{needs.get-tapp-id.outputs.name}} to the registry"
+          git push --set-upstream origin "HEAD:${{ github.event.pull_request.title }}"
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
