@@ -20,7 +20,7 @@ permissions:
   contents: write
 
 jobs:
-  read-variables:
+  get-tapp-id:
     runs-on: ubuntu-latest
     outputs:
       name: ${{ steps.var-setup.outputs.name }}
@@ -40,19 +40,33 @@ jobs:
   check-tapp:
     runs-on: ubuntu-latest
     outputs:
-      status: ${{steps.tapp-register.outputs.status}}
-    needs: read-variables
+      status: ${{steps.tapp-checker.outputs.status}}
+    needs: get-tapp-id
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Register tapplet
-        id: tapp-register
+      - name: Check tapplet package
+        id: tapp-checker
         uses: karczuRF/ga-test@main
         with:
-          package-name: ${{needs.read-variables.outputs.name}}
-          package-version: ${{needs.read-variables.outputs.version}}
+          package-name: ${{needs.get-tapp-id.outputs.name}}
+          package-version: ${{needs.get-tapp-id.outputs.version}}
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit updated files
+        id: push-commit
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+          git add -A
+          git commit -m "Add images from ${{needs.get-tapp-id.outputs.name}} to the registry"
+          git fetch origin
+          git rebase --strategy-option=theirs origin/main
+          git push --force
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
